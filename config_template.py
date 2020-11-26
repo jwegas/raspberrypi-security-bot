@@ -12,4 +12,4 @@ REQUEST_KWARGS={
 }
 
 #  raspberry pi settings
-PIR_OUT = 18  # pin with logic signal from PIR Motion Sensor
+PIR_PIN = 18  # pin with logic signal from PIR Motion Sensor

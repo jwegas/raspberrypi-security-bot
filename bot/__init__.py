@@ -27,8 +27,7 @@ class Bot:
     def __init__(self):
 
         #  setup hardware (PIR sensor and Camera)
-        self.pir_sensor = PIRSensor(
-            vcc_pin=config.PIR_VCC, out_pin=config.PIR_OUT)
+        self.pir_sensor = PIRSensor(sensor_pin=config.PIR_PIN)
         self.camera = Camera()
 
         #  create updater for bot - set all requred setting for connection

@@ -22,7 +22,7 @@ This code was tested with:
     * `TOKEN` - token you got after creating telegram bot;
     * `RECIEVER_ID` - ID of chat to communicate with. Only you can communicate with this bot. E.g. you can get your `RECIEVER_ID` with help of another Telegram Bot called *@userinfobot*. It will send your id.
     * `REQUEST_KWARGS` - additional settings to connect to Telegram server, e.g. proxy settings;
-    * `PIR_OUT` - Raspberry Pi pin number (according BCM mode) which signal pin of PIR sensor is connected to.
+    * `PIR_PIN` - Raspberry Pi pin number (according BCM mode) which signal pin of PIR sensor is connected to.
 7. Create virtual environment (e.g. with `virtualenv`) and install all requirements:
     * `virtualenv venv -p python3`;
     * `source venv/bin/activate`;
