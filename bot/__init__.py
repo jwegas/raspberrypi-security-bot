@@ -94,7 +94,7 @@ class Bot:
             context (telegram.ext.CallbackContext): context object
         """
         query = update.callback_query
-        if update.message.chat_id != self.reciever_id:
+        if update.effective_chat.id != self.reciever_id:
             self._access_denied(update, context)
 
         elif query.data == 'menu':
@@ -129,7 +129,10 @@ class Bot:
         """
 
         #  delete job from job queue
-        self.detection_job.schedule_removal()
+        if len(self.j.jobs()) > 0:
+            self.detection_job.schedule_removal()
+        else:
+            logging.info("No jobs to stop")
 
         #  send to use and log info message
         message_text = "Motion Detection Disabled."
@@ -147,8 +150,11 @@ class Bot:
         """
 
         #  recreate job for movement detection process
-        self.detection_job = self.j.run_repeating(
-            self._detect_movement, 5, first=0)
+        if len(self.j.jobs()) > 0:
+            logging.info("Job is already runnig.")
+        else:
+            self.detection_job = self.j.run_repeating(
+                self._detect_movement, 5, first=0)
 
         #  send to use and log info message
         message_text = "Motion Detection Enabled."
