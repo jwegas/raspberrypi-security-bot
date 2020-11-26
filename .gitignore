@@ -3,7 +3,9 @@ __pycache__
 *.pyc
 media/*
 *.code-workspace
-start_tmux.sh
+*.sh
 config.py
+venv
 
 !.gitkeep
+!*template*
