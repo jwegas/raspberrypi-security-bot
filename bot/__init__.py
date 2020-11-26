@@ -96,8 +96,9 @@ class Bot:
         query = update.callback_query
         if update.effective_chat.id != self.reciever_id:
             self._access_denied(update, context)
+            return
 
-        elif query.data == 'menu':
+        if query.data == 'menu':
             self.show_menu(update, context)
         elif query.data == 'photo':
             self._capture_and_send(update, context)
