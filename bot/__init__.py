@@ -37,7 +37,8 @@ class Bot:
         self.updater = Updater(
             token=config.TOKEN,
             use_context=True,
-            request_kwargs=requests_settings)
+            request_kwargs=requests_settings,
+            workers=1)
 
         #  create atribute for dispatcher
         self.dispatcher = self.updater.dispatcher
@@ -72,6 +73,8 @@ class Bot:
 
         #  ID of person who own security system (YOUR ID :) )
         self.reciever_id = config.RECIEVER_ID
+
+        self._is_running = True
 
     def show_menu(self, update, context):
         """Send greetings message with Menu Buttons.
@@ -130,8 +133,9 @@ class Bot:
         """
 
         #  delete job from job queue
-        if len(self.j.jobs()) > 0:
+        if self._is_running:
             self.detection_job.schedule_removal()
+            self._is_running = False
         else:
             logging.info("No jobs to stop")
 
@@ -149,13 +153,13 @@ class Bot:
             update (telegram.Update): This object represents an incoming update.
             context (telegram.ext.CallbackContext): context object
         """
-
         #  recreate job for movement detection process
-        if len(self.j.jobs()) > 0:
+        if self._is_running:
             logging.info("Job is already runnig.")
         else:
             self.detection_job = self.j.run_repeating(
                 self._detect_movement, 5, first=0)
+            self._is_running = True
 
         #  send to use and log info message
         message_text = "Motion Detection Enabled."
@@ -180,8 +184,8 @@ class Bot:
         button_list = [
             [InlineKeyboardButton('Show Menu', callback_data='menu')],
             [InlineKeyboardButton('Make Photo', callback_data='photo')],
-            [InlineKeyboardButton('Start Detection', callback_data='stop')],
-            [InlineKeyboardButton('Stop Detection', callback_data='start')],
+            [InlineKeyboardButton('Start Detection', callback_data='start')],
+            [InlineKeyboardButton('Stop Detection', callback_data='stop')],
         ]
         menu = InlineKeyboardMarkup(button_list)
         return menu
