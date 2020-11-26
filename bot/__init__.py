@@ -17,7 +17,7 @@ from .utils import PIRSensor, Camera
 
 #  basic setup for logging
 logging.basicConfig(
-    level=logging.DEBUG if config.DEBUG else logging.INFO,
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
@@ -94,9 +94,11 @@ class Bot:
             update (telegram.Update): This object represents an incoming update.
             context (telegram.ext.CallbackContext): context object
         """
-
         query = update.callback_query
-        if query.data == 'menu':
+        if update.message.chat_id != self.reciever_id:
+            self._access_denied(update, context)
+
+        elif query.data == 'menu':
             self.show_menu(update, context)
         elif query.data == 'photo':
             self._capture_and_send(update, context)
@@ -104,6 +106,20 @@ class Bot:
             self._stop_detection(update, context)
         elif query.data == 'start':
             self._start_detection(update, context)
+
+    def _access_denied(self, update, context):
+        """Send info message with rejection.
+
+        Args:
+            update (telegram.Update): This object represents an incoming update.
+            context (telegram.ext.CallbackContext): context object
+        """
+
+        message_text = "You don't have permissions to communicate with this bot"
+        logging.info(message_text)
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=message_text)
 
     def _stop_detection(self, update, context):
         """Stop movement detection process.
@@ -156,11 +172,10 @@ class Bot:
         """
 
         button_list = [
-            [InlineKeyboardButton('show menu', callback_data='menu')],
-            [InlineKeyboardButton('say hello', callback_data='hello')],
-            [InlineKeyboardButton('make photo', callback_data='photo')],
-            [InlineKeyboardButton('stop detection', callback_data='stop')],
-            [InlineKeyboardButton('start detection', callback_data='start')],
+            [InlineKeyboardButton('Show Menu', callback_data='menu')],
+            [InlineKeyboardButton('Make Photo', callback_data='photo')],
+            [InlineKeyboardButton('Start Detection', callback_data='stop')],
+            [InlineKeyboardButton('Stop Detection', callback_data='start')],
         ]
         menu = InlineKeyboardMarkup(button_list)
         return menu
