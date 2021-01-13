@@ -13,5 +13,5 @@ REQUEST_KWARGS={
 
 #  raspberry pi settings
 PIR_PIN = 18  # pin with logic signal from PIR Motion Sensor
-CAMERA_VFLIP = TRUE  #  vertical flipping of image
-CAMERA_HFLIP = TRUE  #  horizontal flipping of image
+CAMERA_VFLIP = True  #  vertical flipping of image
+CAMERA_HFLIP = True  #  horizontal flipping of image
