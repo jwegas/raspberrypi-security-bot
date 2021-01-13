@@ -28,7 +28,7 @@ class Bot:
 
         #  setup hardware (PIR sensor and Camera)
         self.pir_sensor = PIRSensor(sensor_pin=config.PIR_PIN)
-        self.camera = Camera()
+        self.camera = Camera(vflip=config.CAMERA_VFLIP, hflip=config.CAMERA_HFLIP)
 
         #  create updater for bot - set all requred setting for connection
         requests_settings = config.REQUEST_KWARGS \
