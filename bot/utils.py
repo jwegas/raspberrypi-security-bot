@@ -45,11 +45,11 @@ class Camera:
     * Capture pic
 
     """
-    def __init__(self):
+    def __init__(self, vflip=True, hflip=True):
 
         camera = picamera.PiCamera()
-        camera.vflip = True
-        camera.hflip = True
+        camera.vflip = vflip
+        camera.hflip = hflip
         self.camera = camera
         self.pic_path = 'media/tmp_photo.jpg'
 
