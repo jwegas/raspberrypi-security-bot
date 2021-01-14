@@ -50,6 +50,7 @@ class Camera:
         camera = picamera.PiCamera()
         camera.vflip = vflip
         camera.hflip = hflip
+        camera.led = False
         self.camera = camera
         self.pic_path = 'media/tmp_photo.jpg'
 
