@@ -4,8 +4,8 @@ Hey there. This is Telegram Bot which can help you to control your home or worki
 With Raspberry Pi microcomputer, PIR motion sensor and Camera it will inform you with telegram message if someone come to your room, office or another space.
 
 This code was tested with:
-* Raspberry Pi 3b+;
-* Raspberry Camera v2.1;
+* Raspberry Pi 3b+ + Raspberry Camera v2.1;
+* Raspberry Pi Zero + Raspberry Camera v1.3;
 * Infrared PIR Motion Sensor Module HC-SR501.
 
 ## Install
